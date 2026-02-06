@@ -2,9 +2,9 @@
 
 ## 📌 Overview
 
-This project implements a real-time voice emotion detection system using deep learning. It captures speech from a microphone, processes the audio signal, and predicts the speaker’s emotional state using a pre-trained HuBERT model. A simple Tkinter GUI displays detected emotions and confidence levels interactively.
+This project implements a real-time voice emotion detection system using deep learning. It captures speech from a microphone, processes audio signals, and predicts the speaker’s emotional state using a pre-trained HuBERT model. The system runs offline and provides interactive results through a graphical interface.
 
-The system works offline and demonstrates practical applications of speech emotion recognition in human–computer interaction.
+It demonstrates the practical use of speech emotion recognition in human–computer interaction and intelligent user analysis.
 
 ---
 
@@ -14,7 +14,7 @@ The system works offline and demonstrates practical applications of speech emoti
 * Deep learning–based emotion classification
 * Offline model loading (no internet required)
 * Silence detection to avoid false predictions
-* Interactive graphical interface (Tkinter)
+* GUI-based interaction
 * Displays emotion label and confidence score
 
 ---
@@ -24,37 +24,39 @@ The system works offline and demonstrates practical applications of speech emoti
 * Python
 * PyTorch
 * Hugging Face Transformers
-* HuBERT (Speech Representation Model)
+* HuBERT Speech Model
 * NumPy
 * SoundDevice
-* Tkinter (GUI)
+* Tkinter / Flask (UI integration)
 
 ---
 
 ## 📂 Project Structure
 
 ```
-## 📂 Project Structure
-
-```
 project-folder/
 │
-├── static/                
-├── templates/             
+├── static/                    # Frontend assets
+├── templates/                 # HTML templates
 │
-├── app.py              
-├── database.db            
-├── emotion.py             # Voice emotion detection module
+├── app.py                     # Flask application
+├── database.db                # SQLite database
+├── emotion.py                 # Voice emotion detection module
 │
 ├── models/
-│   └── hubert_emotion/    # Pretrained HuBERT model files
+│   └── hubert_emotion/        # Pretrained HuBERT model files
 │
-├── README.md              
-└── requirements.txt      
+├── README.md
+└── requirements.txt
 ```
 
-```
-## Model link https://huggingface.co/xmj2002/hubert-base-ch-speech-emotion-recognition?utm_source
+---
+
+## 🤖 Model
+
+HuBERT Speech Emotion Recognition Model:
+[https://huggingface.co/xmj2002/hubert-base-ch-speech-emotion-recognition](https://huggingface.co/xmj2002/hubert-base-ch-speech-emotion-recognition)
+
 ---
 
 ## ⚙️ Installation
@@ -85,7 +87,7 @@ pip install torch transformers sounddevice numpy
 Run the application:
 
 ```
-python main.py
+python app.py
 ```
 
 ### Controls
@@ -93,7 +95,7 @@ python main.py
 * **Start** → Begins listening and emotion detection
 * **Stop** → Stops detection
 
-Detected emotion and confidence will appear on the GUI.
+Detected emotion and confidence will appear on the interface.
 
 ---
 
@@ -103,17 +105,17 @@ Detected emotion and confidence will appear on the GUI.
 * Angry
 * Sad
 * Confident (mapped from happy class)
-* Silence detection (no output)
+* Silence detection
 
 ---
 
 ## 🔍 How It Works
 
 1. Records 6-second audio clips at 16kHz
-2. Detects silence using amplitude threshold
-3. Extracts speech features using Wav2Vec2 extractor
-4. HuBERT model classifies emotion
-5. GUI displays prediction and confidence
+2. Checks for silence using amplitude threshold
+3. Extracts features using Wav2Vec2 extractor
+4. HuBERT model predicts emotion class
+5. Displays result with confidence score
 
 ---
 
@@ -121,7 +123,7 @@ Detected emotion and confidence will appear on the GUI.
 
 * Smart assistants
 * Mental health monitoring
-* Customer support analytics
+* Customer sentiment analysis
 * Human–computer interaction research
 * Interview assessment tools
 
@@ -129,29 +131,29 @@ Detected emotion and confidence will appear on the GUI.
 
 ## ⚠️ Limitations
 
-* Limited emotion classes
-* Accuracy depends on audio quality
-* Not optimized for noisy environments
+* Limited emotion categories
+* Performance depends on audio quality
+* Sensitive to noisy environments
 * Uses fixed recording duration
 
 ---
 
 ## 🔮 Future Improvements
 
-* Add more emotion categories
+* Expand emotion classes
 * Real-time streaming inference
-* Noise reduction preprocessing
-* Save prediction history
-* Deploy as web or mobile app
+* Noise filtering & preprocessing
+* Prediction history storage
+* Web/mobile deployment
 
 ---
 
 ## 👤 Author
 
-Chandru AI/ML Developer
+**Chandru — AI/ML Developer**
 
 ---
 
 ## 📜 License
 
-This project is for academic and educational use.
+This project is intended for academic and educational purposes.
