@@ -34,14 +34,25 @@ The system works offline and demonstrates practical applications of speech emoti
 ## 📂 Project Structure
 
 ```
+## 📂 Project Structure
+
+```
 project-folder/
 │
-├── models/
-│   └── hubert_emotion/       
+├── static/                
+├── templates/             
 │
-├── main.py                   
-├── README.md
-└── requirements.txt
+├── app.py              
+├── database.db            
+├── emotion.py             # Voice emotion detection module
+│
+├── models/
+│   └── hubert_emotion/    # Pretrained HuBERT model files
+│
+├── README.md              
+└── requirements.txt      
+```
+
 ```
 ## Model link https://huggingface.co/xmj2002/hubert-base-ch-speech-emotion-recognition?utm_source
 ---
