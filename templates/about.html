@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Voice Emotion Detection</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 16px 50px;
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .navbar a {
+            margin-left: 18px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #374151;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: 0.25s;
+        }
+
+        .navbar a:hover {
+            background: #e0e7ff;
+            color: #1d4ed8;
+        }
+
+        /* PAGE CONTENT */
+        .container {
+            padding: 120px 10% 80px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .intro {
+            font-size: 1.15rem;
+            color: #4b5563;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 900px;
+            margin: auto;
+            margin-bottom: 60px;
+        }
+
+        /* INFO GRID */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card i {
+            font-size: 2rem;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #1e3a8a;
+        }
+
+        .card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #6b7280;
+        }
+
+        /* TECH STACK */
+        .tech {
+            margin-top: 70px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+
+        .tech h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #1e3a8a;
+            margin-bottom: 30px;
+        }
+
+        .tech-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .tech-item {
+            font-size: 1rem;
+            background: #e0e7ff;
+            color: #1d4ed8;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        /* BUTTON */
+        .back-btn {
+            display: block;
+            margin: 50px auto 0;
+            padding: 14px 40px;
+            background: #2563eb;
+            color: #ffffff;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: 700;
+            text-align: center;
+            width: fit-content;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #1e40af;
+            transform: translateY(-3px);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 100px 6% 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Voice Emotion AI</div>
+    <div>
+
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+   
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('voice_emotion') }}">Voice Emotion</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+
+    </div>
+</div>
+
+
+    <!-- CONTENT -->
+    <div class="container">
+
+        <h1>About Voice Emotion Detection</h1>
+
+        <p class="intro">
+            Voice Emotion Detection is an AI-powered system designed to analyze human speech
+            and identify emotional states such as <strong>happy, sad, angry, neutral</strong>,
+            and <strong>confident</strong>.  
+            The system operates fully offline and processes real-time audio securely.
+        </p>
+
+        <!-- INFO GRID -->
+        <div class="info-grid">
+
+            <div class="card">
+                <i class="fas fa-microphone"></i>
+                <h3>Real-Time Voice Capture</h3>
+                <p>
+                    Uses live microphone input to capture speech signals continuously,
+                    ensuring natural and spontaneous emotion detection.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-brain"></i>
+                <h3>Deep Learning Intelligence</h3>
+                <p>
+                    Powered by HuBERT and Wav2Vec2-based neural networks trained
+                    for emotion recognition from speech patterns.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-lock"></i>
+                <h3>Offline & Secure</h3>
+                <p>
+                    All predictions are performed locally without sending audio data
+                    to external servers, ensuring privacy and security.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Confidence Scoring</h3>
+                <p>
+                    Along with emotion labels, the system provides a confidence
+                    percentage to indicate prediction reliability.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- TECH STACK -->
+        <div class="tech">
+            <h2>Technology Stack</h2>
+            <div class="tech-list">
+                <div class="tech-item">Python</div>
+                <div class="tech-item">PyTorch</div>
+                <div class="tech-item">HuBERT Model</div>
+                <div class="tech-item">Wav2Vec2</div>
+                <div class="tech-item">SoundDevice</div>
+                <div class="tech-item">Tkinter GUI</div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="back-btn">← Back to Home</a>
+
+    </div>
+
+</body>
+</html>

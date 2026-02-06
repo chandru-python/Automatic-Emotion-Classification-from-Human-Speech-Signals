@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Emotion Detection</title>
+
+    <!-- Font Awesome -->
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, #f4f8fb, #eaf0f6);
+            color: #1f2933;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 50px;
+            background: #ffffff;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .navbar a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.25s;
+        }
+
+        .navbar a:hover {
+            background: #e0e7ff;
+            color: #1d4ed8;
+        }
+
+        /* HERO */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 80px 100px;
+            gap: 60px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #4b5563;
+            margin-bottom: 35px;
+        }
+
+        .hero-text .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .hero-text .btn:hover {
+            background: #1e40af;
+            transform: translateY(-3px);
+        }
+
+        /* CARD AREA */
+        .hero-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card i {
+            font-size: 2.2rem;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #6b7280;
+        }
+
+        /* EMOTION STRIP */
+        .emotion-strip {
+            margin-top: 70px;
+            padding: 30px;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+        }
+
+        .emotion-item {
+            text-align: center;
+            font-size: 1rem;
+            color: #374151;
+        }
+
+        .emotion-item i {
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+            color: #2563eb;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 50px 30px;
+            }
+            .hero-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Voice Emotion AI</div>
+    <div>
+
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+     
+
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('voice_emotion') }}">Voice Emotion</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+
+    </div>
+</div>
+
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Understand Emotions Through Voice</h1>
+            <p>
+                Our AI system analyzes speech patterns to identify human emotions such as
+                happiness, sadness, anger, fear, and neutrality — helping improve communication,
+                safety, and mental well-being.
+            </p>
+
+            <a href="{{ url_for('voice_emotion') }}" class="btn">
+                Start Voice Detection
+            </a>
+        </div>
+
+        <div class="hero-cards">
+            <div class="card">
+                <i class="fas fa-microphone"></i>
+                <h3>Voice Input</h3>
+                <p>Capture real-time speech for emotional analysis.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-brain"></i>
+                <h3>AI Analysis</h3>
+                <p>Deep learning models extract emotional features.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Emotion Insight</h3>
+                <p>Detect mood states with high accuracy.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Smart Reports</h3>
+                <p>Visualize emotion patterns and trends.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EMOTION STRIP -->
+    <div class="emotion-strip">
+        <div class="emotion-item"><i class="fas fa-smile"></i><br>Happy</div>
+        <div class="emotion-item"><i class="fas fa-frown"></i><br>Sad</div>
+        <div class="emotion-item"><i class="fas fa-angry"></i><br>Angry</div>
+        <div class="emotion-item"><i class="fas fa-meh"></i><br>Neutral</div>
+        <div class="emotion-item"><i class="fas fa-surprise"></i><br>Surprise</div>
+    </div>
+
+</body>
+</html>

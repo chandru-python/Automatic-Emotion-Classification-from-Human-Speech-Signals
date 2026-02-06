@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Voice Emotion Detection</title>
+
+    <!-- Font Awesome -->
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 16px 50px;
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .navbar a {
+            margin-left: 18px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #374151;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: 0.25s;
+        }
+
+        .navbar a:hover {
+            background: #e0e7ff;
+            color: #1d4ed8;
+        }
+
+        /* REGISTER CONTAINER */
+        .register-wrapper {
+            margin-top: 90px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 950px;
+            max-width: 95%;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+        }
+
+        /* LEFT PANEL */
+        .info-panel {
+            background: linear-gradient(180deg, #2563eb, #1e3a8a);
+            padding: 50px;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-panel h2 {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+        }
+
+        .info-panel p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #dbeafe;
+        }
+
+        .emotion-icons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            font-size: 1.8rem;
+        }
+
+        /* FORM PANEL */
+        .form-panel {
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .form-box h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #1e3a8a;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 12px 12px 42px;
+            border-radius: 10px;
+            border: 1px solid #d1d5db;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        .form-box p {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .form-box a {
+            color: #2563eb;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .form-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* FLASH MESSAGE */
+        .error {
+            color: #dc2626;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .success {
+            color: #16a34a;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            .register-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .info-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Voice Emotion AI</div>
+    <div>
+
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('voice_emotion') }}">Voice Emotion</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+
+    </div>
+</div>
+
+
+    <!-- REGISTER -->
+    <div class="register-wrapper">
+
+        <!-- LEFT PANEL -->
+        <div class="info-panel">
+            <h2>Create Account</h2>
+            <p>
+                Join our AI-powered voice emotion analysis platform.
+                Detect emotional states from speech and gain intelligent insights.
+            </p>
+
+            <div class="emotion-icons">
+                <i class="fas fa-smile"></i>
+                <i class="fas fa-frown"></i>
+                <i class="fas fa-angry"></i>
+                <i class="fas fa-meh"></i>
+                <i class="fas fa-microphone"></i>
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="form-panel">
+            <div class="form-box">
+                <h3>Register</h3>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        <div class="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endwith %}
+
+                <form method="POST">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="name" placeholder="Full Name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email address" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="text" name="phone" placeholder="Phone number" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+
+                    <button type="submit">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+
+                <p>
+                    Already have an account?
+                    <a href="{{ url_for('login') }}">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
